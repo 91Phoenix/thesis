@@ -1,0 +1,8 @@
+/target/
+/.classpath
+/.jdk8
+/.project
+/.springBeans
+/build.gradle
+/gradlew
+/gradlew.bat

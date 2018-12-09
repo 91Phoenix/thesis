@@ -1,0 +1,30 @@
+#the name under this block define the name with which we can call this service
+spring:
+  application:
+     name: ui  # Service registers under this name
+  freemarker:
+    enabled: false           # Ignore Eureka dashboard FreeMarker templates
+security:
+  sessions: NEVER
+  user:
+    role: USER,ADMIN
+    
+server:
+  port: 8081
+
+#cofiguration of the Eureka Server : default zone is to find the discovery server and publish 
+#the service. The lease is the freqency with wich the service tell to the discovery server that everything is ok
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 5   # DO NOT DO THIS IN PRODUCTION  --> too much overhead
+
+hystrix: 
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 8000

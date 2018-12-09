@@ -1,0 +1,38 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Greeting POC : Register a new customer</h1>
+	
+	
+	<form method="POST" enctype="multipart/form-data"  th:action="@{/ui/registerCustomer}">
+			<table>
+			<tr><td>email:</td><td></td></tr>
+			<tr><td><input type="text" name="email" /></td></tr>
+			<tr><td></td></tr>
+			
+			<tr><td>password:</td><td></td></tr>
+			<tr><td><input type="password" name="password" /></td></tr>
+			<tr><td></td></tr>
+			
+			<tr><td>firstName:</td><td></td></tr>
+			<tr><td><input type="text" name="firstName" /></td></tr>
+			<tr><td></td></tr>
+			
+		   <tr><td>secondName:</td><td></td></tr>
+			<tr><td><input type="text" name="secondName" /></td></tr>
+			<tr><td></td></tr>
+		   
+			<tr><td><input type="submit" value="Submit" /></td></tr>
+			</table>
+		</form>
+		
+	
+	<div style="height: 2cm">&nbsp;</div>
+			
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

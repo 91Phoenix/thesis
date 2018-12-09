@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: copy">
+    <meta charset="utf-8"></meta>
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Recipe update</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+</head>
+    <body style="font-family: 'Open Sans', sans-serif;">
+        <div class="container">
+        <div class="centered title"><h1 style="color: Highlight">Hello <span sec:authentication="name"></span>, see below your recipe detail. Then if you need it change them.</h1></div>
+     </div>
+      <form method="POST" enctype="multipart/form-data"  th:action="@{/ui/updateRecipe}">
+     <hr class="featurette-divider"></hr>
+         <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="tab-content">
+                
+  <div id="stripe" class="tab-pane fade in active">
+                       <script src='https://js.stripe.com/v2/' type='text/javascript'></script>      
+        
+	<dl>
+			<dt>ID recipe:</dt>
+			<dd th:text="${Recipe.entityId}"></dd>
+			<dt>Title:</dt>
+			<dd th:text="${Recipe.title}"></dd>
+			<dt>likes number:</dt>
+			<dd th:text="${Recipe.likesNumber}"></dd>
+			<dt>description</dt>
+			<dd th:text="${Recipe.description}"></dd>
+			<dt>author</dt>
+			<dd th:text="${Recipe.author}"></dd>
+			<dt>state:</dt>
+			<dd th:text="${Recipe.state}"></dd>
+			<dt>Photo:</dt>
+			<dd><img th:src="${Recipe.photo}"/></dd>
+	</dl>
+            </div>  
+         </div>
+            </div>    
+     
+        <div class="col-sm-6">
+         <div class='form-row'>
+              <div class='form-group card required'>
+                  <label class='control-label'>description</label>
+                  <input type="hidden" th:value="${Recipe.entityId}" name="id"/>
+                <textarea rows="4" cols="50" name="description" class='form-control card-number'>please, insert the description of the recipe</textarea>
+              </div>
+            </div>
+        
+  <div class="container">
+<div class="col-md-6">
+    <div class="form-group">
+        <label>Upload the new Image and see below the preview</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse&hellip; <input type="file" name="file" id="imgInp"></input>
+                </span>
+            </span>
+            <input type="text" class="form-control" readonly="readonly"></input>
+        </div>
+        <br></br>
+        <img id='img-upload'/>
+          <div class='form-row'>
+              <div class='form-group'>
+                         <label class='control-label'></label>              
+                  <button class='form-control btn btn-primary submit-button' type='submit'>Chose a picture (on the right) and then Continue →</button>
+            </div>
+           </div>
+    </div>
+</div>
+</div>
+        </div>
+        
+        </div>     
+                </div> 
+          
+              </form>    
+                
+<script type="text/javascript">
+$(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+		    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+	    
+		});
+		function readURL(input) {
+		    if ( input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+		    readURL(this);
+		}); 	
+	});
+</script>
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

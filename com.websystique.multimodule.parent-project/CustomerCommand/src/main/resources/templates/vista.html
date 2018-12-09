@@ -1,0 +1,27 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Eventuate POC</h1>
+
+<<<<<<< HEAD
+		<form method="POST"  action="/api/recipes">
+			<table>
+			<tr><td>titolo:</td><td><input type="text" name="titolo" /></td></tr>
+			<tr><td>descrizione:</td><td><input type="text" name="descrizione" /></td></tr>
+			<tr><td>autore:</td><td><input type="text" name="autore" /></td></tr>
+=======
+		<form method="post"  action="/api/recipeById/">
+			<table>
+			<tr><td>Title:</td><td><input type="text" name="title"/></td></tr>
+>>>>>>> branch 'master' of https://github.com/91Phoenix/CustomerQuery.git
+			<tr><td></td><td><input type="submit" value="Submit" /></td></tr>
+			</table>
+		</form>
+		
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

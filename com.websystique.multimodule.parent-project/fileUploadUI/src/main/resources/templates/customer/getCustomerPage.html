@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>find Customer</h1>
+
+		<form method="GET"  th:action="@{/ui/customerByName/}">
+			<table>
+			<tr><td>customer name:</td><td><input type="text" name="name"/></td></tr>
+			<tr><td></td><td><input type="submit" value="Submit" /></td></tr>
+			</table>
+		</form>
+		
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: copy">
+    <meta charset="utf-8"></meta>
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Recipe update</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+</head>
+    <body style="font-family: 'Open Sans', sans-serif;">
+        <div class="container">
+        <div class="centered title"><h1 style="color: Highlight">Hello <span sec:authentication="name"></span>, insert your personal recipe</h1></div>
+     </div>
+      <form method="POST" enctype="multipart/form-data"  th:action="@{/ui/recipes}">
+     <hr class="featurette-divider"></hr>
+         <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="tab-content">
+                
+  <div id="stripe" class="tab-pane fade in active">
+                       <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
+        
+          <div class='form-row'>
+              <div class='form-group required'>
+                <div class='error form-group hide'>
+                <div class='alert-danger alert'>
+                  Please correct the errors and try again.
+              
+              </div>
+            </div>
+                <label class='control-label'>Title</label>
+                <input class='form-control' size='20' type='text' name="title"></input>
+              </div>
+                    
+            </div>
+            <div class='form-row'>
+              <div class='form-group card required'>
+                  <label class='control-label'>description</label>
+                <textarea rows="4" cols="50" name="description" class='form-control card-number'>please, insert the description of the recipe</textarea>
+              </div>
+            </div>
+            
+             <div class='form-row'>
+              <div class='form-group card required'>
+                <label class='control-label'>author</label>
+                <input autocomplete='off' class='form-control' name="author"  size='20' type='text'></input>
+                	<input type="hidden" th:value="${CustomerEmail}" name="CustomerEmail"/>
+              </div>
+            </div>
+           
+            <div class='form-row'>
+              <div class='form-group'>
+                         <label class='control-label'></label>              
+                  <button class='form-control btn btn-primary submit-button' type='submit'>Chose a picture (on the right) and then Continue →</button>
+            </div>
+           </div>
+            </div>  
+         </div>
+            </div>    
+     
+        <div class="col-sm-6">
+           <label class='control-label'></label><!-- spacing -->
+        <br></br>
+          <div class="alert alert-info">Please choose the picture which best represents the recipe.</div>
+        
+  <div class="container">
+<div class="col-md-6">
+    <div class="form-group">
+        <label>Upload Image and see below the preview</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse&hellip; <input type="file" name="file" id="imgInp"></input>
+                </span>
+            </span>
+            <input type="text" class="form-control" readonly="readonly"></input>
+        </div>
+        <br></br>
+        <img id='img-upload'/>
+    </div>
+</div>
+</div>
+        </div>
+        
+        </div>     
+                </div> 
+          
+              </form>    
+                
+<script type="text/javascript">
+$(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+		    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+	    
+		});
+		function readURL(input) {
+		    if ( input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+		    readURL(this);
+		}); 	
+	});
+</script>
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

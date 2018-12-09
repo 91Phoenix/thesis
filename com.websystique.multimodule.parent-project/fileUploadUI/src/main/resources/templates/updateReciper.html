@@ -1,0 +1,58 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Find below the details of the Recipe. You can change description and picture</h1>
+
+	<dl>
+			<dt>ID recipe:</dt>
+			<dd th:text="${Recipe.entityId}"></dd>
+			<dt>Title:</dt>
+			<dd th:text="${Recipe.title}"></dd>
+			<dt>likes number:</dt>
+			<dd th:text="${Recipe.likesNumber}"></dd>
+			<dt>description</dt>
+			<dd th:text="${Recipe.description}"></dd>
+			<dt>author</dt>
+			<dd th:text="${Recipe.author}"></dd>
+			<dt>state:</dt>
+			<dd th:text="${Recipe.state}"></dd>
+			<dt>Photo:</dt>
+			<dd><img th:src="${Recipe.photo}"/></dd>
+	</dl>
+	
+	<form method="POST" enctype="multipart/form-data"  th:action="@{/ui/updateRecipe}">
+			<table>
+			
+			<tr><td>change the description or leave the text area blank:</td><td></td></tr>
+			<tr><td>
+			<textarea rows="4" cols="50" name="description"></textarea>
+			</td></tr>
+			<tr><td></td></tr>
+		
+		   <tr><td>upload a new picture or leave the old one don't uploading anything:</td><td></td></tr>
+			<tr><td><input type="file" name="file" /></td></tr>
+		   <tr><td></td></tr>
+		   
+			<tr><td><input type="hidden" th:value="${Recipe.entityId}" name="id"/></td></tr>
+		   
+			<tr><td><input type="submit" value="Submit" /></td></tr>
+			
+			
+			
+			</table>
+		</form>
+
+	<div style="height: 2cm">&nbsp;</div>
+<!--  
+	<div style="text-align: right">
+		Options: <a th:href="@{/}">Home</a> | <a
+			th:href="@{/accounts/search}">Account Search</a>
+	</div>
+-->
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

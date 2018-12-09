@@ -1,0 +1,69 @@
+mysql:
+  image: eventuateio/eventuateio-local-mysql:0.6.0
+  ports:
+    - 3306:3306
+  environment:
+    - MYSQL_ROOT_PASSWORD=rootpassword
+    - MYSQL_USER=mysqluser
+    - MYSQL_PASSWORD=mysqlpw
+    - BIND-ADDRESS=10.0.0.21
+    
+zookeeper:
+  image: eventuateio/eventuateio-local-zookeeper:0.6.0
+  ports:
+    - 2181:2181
+    - 2888:2888
+    - 3888:3888
+  environment:
+    - ZK_SERVERS=10.0.0.21:2181
+
+kafka:
+  image: eventuateio/eventuateio-local-kafka:0.6.0
+  ports:
+    - 9092:9092
+  links:
+    - zookeeper
+  environment:
+    - ADVERTISED_HOST_NAME=10.0.0.21
+    - ADVERTISED_PORT=9092   
+    - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
+    - ZOOKEEPER_SERVERS=zookeeper:2181
+
+discovery-server:   
+  image: raffaele91/discovery-server:latest
+  ports: 
+    - "1111:1111" 
+
+description-moderator :
+  image: raffaele91/description-moderator:latest
+  ports:
+     - "2223:2223"
+  environment:     
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://10.0.0.20/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=127.0.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=127.0.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+     - eureka_instance_prefer-ip-address=false
+     - eureka_instance_hostname=10.0.0.21
+     - eureka_instance_nonSecurePort=2223
+          
+photo-moderator:
+  image: raffaele91/photo-moderator:latest
+  ports:
+     - "2222:2222"
+  environment:   
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://10.0.0.20/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=127.0.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=127.0.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+     - eureka_instance_prefer-ip-address=false
+     - eureka_instance_hostname=10.0.0.21
+     - eureka_instance_nonSecurePort=2222

@@ -1,0 +1,50 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Greeting POC : Upload an Image</h1>
+	
+	
+	<form method="POST" enctype="multipart/form-data"  th:action="@{/ui/recipes}">
+			<table>
+			<tr><td>title:</td><td></td></tr>
+			<tr><td><input type="text" name="title" /></td></tr>
+			<tr><td></td></tr>
+			
+			<tr><td>description:</td><td></td></tr>
+			<tr><td>
+			<textarea rows="4" cols="50" name="description">please, insert the description of the recipe</textarea>
+			</td></tr>
+			<tr><td></td></tr>
+			
+			<tr><td>author:</td><td></td></tr>
+			<tr><td><input type="text" name="author" /></td></tr>
+		   <tr><td></td></tr>
+		   
+		   <tr><td>upload picture:</td><td></td></tr>
+			<tr><td><input type="file" name="file" /></td></tr>
+		   <tr><td></td></tr>
+		   
+			<tr><td><input type="submit" value="Submit" /></td></tr>
+			</table>
+		</form>
+		
+	<!--  
+	<div>
+		<form method="POST" enctype="multipart/form-data" action="/ui/upload">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+	</div>
+	
+    -->
+	<div style="height: 2cm">&nbsp;</div>
+			
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

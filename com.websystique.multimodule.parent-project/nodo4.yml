@@ -1,0 +1,23 @@
+ui:
+  image: raffaele91/ui:latest
+  ports:
+     - "8081:8081"
+  environment:    
+     - eureka_client_serviceUrl_defaultZone=http://10.0.0.20:1111/eureka/    
+     - SPRING_REDIS_HOST=10.0.0.23
+     - SPRING_REDIS_PORT=6379
+     - eureka_instance_prefer-ip-address=false
+     - eureka_instance_hostname=10.0.0.22
+     - eureka_instance_nonSecurePort=8081
+    
+ui2:
+  image: raffaele91/ui:latest
+  ports:
+     - "8087:8087"
+  environment:    
+     - eureka_client_serviceUrl_defaultZone=http://10.0.0.20:1111/eureka/    
+     - SPRING_REDIS_HOST=10.0.0.23
+     - SPRING_REDIS_PORT=6379
+     - eureka_instance_prefer-ip-address=false
+     - eureka_instance_hostname=10.0.0.22
+     - eureka_instance_nonSecurePort=8087

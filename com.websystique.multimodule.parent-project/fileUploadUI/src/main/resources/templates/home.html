@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head th:replace="header :: copy"></head>
+
+<body>
+	<h1 align="center"> <font face="WildWest" color="gold">
+	Hello, welcome to the high performance microservices architecture POC : </font></h1>
+	<h3 align="center">If you have not an account, follow the link and subscribe yourself.
+	<br></br>
+	after the Registration you can insert new recipes and try to win a great present:
+	<br></br>
+	The people can appreciate your recipe and let you know using the apposit like button  
+	<br></br>
+	The recipe that, at the end of June, will have more likes will win a fantastic award
+	</h3> 
+	<br></br>
+        <p>Click <a th:href="@{/ui/registerCustomerView}">here</a> to subsbribe your personal Account</p>
+        
+	<div style="height: 2cm">&nbsp;</div>
+			
+	<div th:replace="footer :: copy"></div>
+    </body>
+</html>

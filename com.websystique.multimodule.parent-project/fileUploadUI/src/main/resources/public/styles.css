@@ -1,0 +1,84 @@
+/* - - - - - - - - - - - *
+       Local Styles
+ * - - - - - - - - - - - */
+ 
+body {
+	font-family: helvetica;
+	font-size: 13pt;
+}
+
+.navbar, .navbar > a {
+	font-family: helvetica;
+	font-size: 15pt;
+}
+
+ul.openlist li {
+	margin-bottom: 1em;
+}
+
+a {
+	font-family: helvetica;
+}
+
+code {
+	background-color: white;
+	border-radius: 0px;
+	color: #80A080;
+	font-size: 100%;
+	font-family: monospace;
+	padding: 0px;
+	white-space: nowrap;
+}
+
+footer {
+	margin-top: 3em;
+	border-top: 1px black solid;
+	text-align: center;
+	color:#6DB33F;   /* Spring Green */
+	font-style: italic;
+}
+ .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+}
+
+.jumbotron-flat {
+  background-color: solid #4DB8FFF;
+  height: 100%;
+  border: 1px solid #4DB8FF;
+  background: white;
+  width: 100%;
+text-align: center;
+overflow: auto;
+}
+
+.paymentAmt {
+    font-size: 80px; 
+}
+
+.centered {
+    text-align: center;
+}
+
+.title {
+ padding-top: 15px;   
+}

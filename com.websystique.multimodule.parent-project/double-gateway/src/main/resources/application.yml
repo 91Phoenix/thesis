@@ -1,0 +1,50 @@
+security:
+  sessions: ALWAYS
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    ui:
+      path: /ui/**
+      serviceId: ui
+      sensitive-headers:
+    recipe-command-side:
+      path: /recipe-command-side/**
+      serviceId: recipe-command-side
+      sensitive-headers:
+    recipe-query-side:
+      path: /recipe-query-side/**
+      serviceId: recipe-query-side
+      sensitive-headers:
+    customer-command-side:
+      path: /customer-command-side/**
+      serviceId: customer-command-side
+      sensitive-headers:
+    customer-query-side:
+      path: /customer-query-side/**
+      serviceId: customer-query-side
+      sensitive-headers:
+    description-Moderator-Service:
+      path: /description-Moderator-Service/**
+      serviceId: description-Moderator-Service
+      sensitive-headers:
+    photo-Moderator-Service:
+      path: /photo-Moderator-Service/**
+      serviceId: photo-Moderator-Service
+      sensitive-headers:
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+      
+ribbon:
+  ConnectTimeout: 100000
+  ReadTimeout: 100000
+       
+hystrix: 
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 20000

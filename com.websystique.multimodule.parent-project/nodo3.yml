@@ -1,0 +1,42 @@
+mongodb:
+  image: mongo:3.0.4
+  hostname: mongodb
+  command: mongod --smallfiles
+  ports:
+    - 27017:27017
+     
+customer-cuery-side:
+  image: raffaele91/customer-cuery-side:test
+  ports:
+     - "8093:8093"
+  environment:   
+     - spring_data_mongodb_uri=mongodb://172.17.0.1:27017/mydb
+     - eureka_client_serviceUrl_defaultZone=http://10.0.0.21:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://10.0.0.21/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=10.0.0.21:9092
+     - eventuateLocal_zookeeper_connectionString=10.0.0.21:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+     - eureka_instance_prefer-ip-address=false
+     - eureka_instance_hostname=10.0.0.20
+     - eureka_instance_nonSecurePort=8093
+
+recipe-query-side:
+  image: raffaele91/recipe-query-side:latest
+  ports:
+     - "8083:8083"
+  environment:    
+     - spring_data_mongodb_uri=mongodb://172.17.0.1:27017/mydb 
+     - eureka_client_serviceUrl_defaultZone=http://10.0.0.21:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://10.0.0.21/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=10.0.0.21:9092
+     - eventuateLocal_zookeeper_connectionString=10.0.0.21:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+     - eureka_instance_prefer-ip-address=false
+     - eureka_instance_hostname=10.0.0.20
+     - eureka_instance_nonSecurePort=8083

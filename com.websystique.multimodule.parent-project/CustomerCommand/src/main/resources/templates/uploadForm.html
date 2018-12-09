@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Greeting POC : Upload an Image</h1>
+	<br></br>
+	<!--  -->
+	<div>
+		<form method="POST" enctype="multipart/form-data" action="/ui/upload">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+	</div>
+	
+
+	<div style="height: 2cm">&nbsp;</div>
+			
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

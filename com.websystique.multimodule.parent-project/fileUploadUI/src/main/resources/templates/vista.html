@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="header :: copy"></head>
+
+<body>
+	<h1>Find below the list of the available recipes  or use the filter to find them by title</h1>
+
+		<form method="GET"  th:action="@{/ui/recipeByTitle/}">
+			<table>
+			<tr><td>Title:</td><td><input type="text" name="title"/></td></tr>
+			<tr><td></td><td><input type="submit" value="Submit" /></td></tr>
+			</table>
+		</form>
+			
+	<h3> discover the beauty of our recipes :</h3>
+	<table border="1" >
+		<tbody>
+			<tr th:each=" ri: ${Recipes.responses}">
+			
+				<td><img th:src="${ri.photo}" hspace="20"/></td>
+				<td>
+					<dl style="margin-left: 20px">
+						<dt>ID recipe:</dt>
+						<dd th:text="${ri.entityId}"></dd>
+						<dt>Title:</dt>
+						<dd th:text="${ri.title}"></dd>
+						<dt>likes number:</dt>
+						<dd th:text="${ri.likesNumber}"></dd>
+						<dt>description</dt>
+						<dd th:text="${ri.description}"></dd>
+						<dt>author</dt>
+						<dd th:text="${ri.author}"></dd>
+						<dt>state:</dt>
+						<dd th:text="${ri.state}"></dd>
+					</dl>
+				</td>
+				<td>
+					<dl style="margin-left: 20px; margin-right: 20px">
+						<dt>Photo Moderation state</dt>
+						<dd th:text="${ri.photoModeration}"></dd>
+						<dt>Description moderation state:</dt>
+						<dd th:text="${ri.descriptionModeration}"></dd>
+						<dd><form method="post"  th:action="@{/ui/like/}">
+							<table>
+								<tr><td></td><td><input type="submit" value="I like it" /></td></tr>
+								<tr><td></td><td><input type="hidden" th:value="${ri.entityId}" name="id"/></td></tr>
+							</table>
+						</form></dd>
+						
+					</dl>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+		
+	<div th:replace="footer :: copy"></div>
+</body>
+</html>

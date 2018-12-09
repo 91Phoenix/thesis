@@ -1,0 +1,155 @@
+mysql:
+  image: eventuateio/eventuateio-local-mysql:0.6.0
+  ports:
+    - 3306:3306
+  environment:
+    - MYSQL_ROOT_PASSWORD=rootpassword
+    - MYSQL_USER=mysqluser
+    - MYSQL_PASSWORD=mysqlpw
+
+mongodb:
+  image: mongo:3.0.4
+  hostname: mongodb
+  command: mongod --smallfiles
+  ports:
+    - 27017:27017
+
+zookeeper:
+  image: eventuateio/eventuateio-local-zookeeper:0.6.0
+  ports:
+    - 2181:2181
+    - 2888:2888
+    - 3888:3888
+
+kafka:
+  image: eventuateio/eventuateio-local-kafka:0.6.0
+  ports:
+    - 9092:9092
+  links:
+    - zookeeper
+  environment:
+    - ADVERTISED_HOST_NAME=172.17.0.1
+    - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
+    - ZOOKEEPER_SERVERS=zookeeper:2181
+    
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+
+discovery-server:   
+  image: raffaele91/discovery-server:latest
+  ports: 
+    - "1111:1111" 
+  environment:  
+     - jvm_opts=-Xmx50m -Xms50m -XX:MaxPermSize=50m  
+
+double-gateway:   
+  image: raffaele91/double-gateway:latest
+  ports:
+     - "8080:8080"
+  environment:  
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m    
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - SPRING_REDIS_HOST=172.17.0.1
+     - SPRING_REDIS_PORT=6379
+
+customer-command-side:
+  image: raffaele91/customer-command-side:latest
+  ports:
+     - "8090:8090"
+  environment:    
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m  
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://172.17.0.1/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=172.17.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=172.17.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+     
+customer-cuery-side:
+  image: raffaele91/customer-cuery-side:latest
+  ports:
+     - "8093:8093"
+  environment:  
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m   
+     - spring_data_mongodb.uri=mongodb://172.17.0.1:27017/mydb 
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://172.17.0.1/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=172.17.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=172.17.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+
+
+recipe-query-side:
+  image: raffaele91/recipe-query-side:latest
+  ports:
+     - "8083:8083"
+  environment:   
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m   
+     - spring_data_mongodb.uri=mongodb://172.17.0.1:27017/mydb 
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://172.17.0.1/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=172.17.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=172.17.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+         
+recipe-command-side:
+  image: raffaele91/recipe-command-side:latest
+  ports:
+     - "8082:8082"
+  environment:  
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m    
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://172.17.0.1/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=172.17.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=172.17.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+            
+ui:
+  image: raffaele91/ui:latest
+  ports:
+     - "8081:8081"
+  environment:    
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/    
+     
+description-moderator :
+  image: raffaele91/description-moderator:latest
+  ports:
+     - "2223:2223"
+  environment:  
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m    
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://172.17.0.1/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=172.17.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=172.17.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
+          
+photo-moderator:
+  image: raffaele91/photo-moderator:latest
+  ports:
+     - "2222:2222"
+  environment:  
+     - jvm_opts=-Xmx56m -Xms56m -XX:MaxPermSize=56m  
+     - eureka_client_serviceUrl_defaultZone=http://172.17.0.1:1111/eureka/
+     - spring_datasource_url=jdbc:mysql://172.17.0.1/eventuate?useSSL=false
+     - spring_datasource_username=mysqluser
+     - spring_datasource_password=mysqlpw
+     - eventuateLocal_kafka_bootstrapServers=172.17.0.1:9092
+     - eventuateLocal_zookeeper_connectionString=172.17.0.1:2181
+     - eventuateLocal_cdc_dbUserName=root
+     - eventuateLocal_cdc_dbPassword=rootpassword
