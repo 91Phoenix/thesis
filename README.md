@@ -6,4 +6,4 @@ Application developed using the Eventuate platform in order to solve the distrib
 The session management is realized using an in memory data structure store (Redis). Other relevant technologies: NETFLIX OSS,
 Java 8, Docker and the related tools, Git, Spring Boot, Java Rx. Deployment of the application on a cloud based infrastructure.
 
-![Cannot visualize the img](./Capture.JPG)
+![Cannot visualize the img](./Capture.PNG)
